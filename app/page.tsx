@@ -9,94 +9,24 @@ import {
 } from "@/components/ui/card";
 import {
   ArrowRight,
-  ClipboardCheck,
   FileText,
   Handshake,
   Instagram,
-  Lightbulb,
   Mail,
-  Paintbrush,
   Phone,
   Search,
-  Shield,
-  Truck,
-  Wrench,
-  Zap,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import Navbar from "@/components/Navbar";
+import ServicesSection from "@/components/ServicesSection";
+import CarSection from "@/components/CarSection";
+import WhatsAppButton from "@/components/WhatsAppButton";
 
 export default function FMPremiumCarsLanding() {
   return (
-    <div className="min-h-screen bg-white">
-      {/* Header */}
-      <header className="border-b border-[#999999] bg-black sticky top-0 z-50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-4">
-            <div className="flex items-center space-x-3">
-              <div>
-                <Image
-                  src="/logo.png"
-                  alt="Logo FM Premium Cars"
-                  width={120}
-                  height={120}
-                />
-                {/* <span className="text-2xl font-bold text-white tracking-wider font-racing">
-                  FM
-                </span>
-                <p className="text-xs text-[#CCCCCC]  tracking-widest">
-                  RACING IMPORTS
-                </p> */}
-              </div>
-            </div>
-
-            <nav className="hidden md:flex items-center space-x-8">
-              <Link
-                href="#proceso"
-                className="text-[#CCCCCC] hover:text-white transition-colors  tracking-wide text-sm font-medium"
-              >
-                Proceso
-              </Link>
-              <Link
-                href="#importaciones"
-                className="text-[#CCCCCC] hover:text-white transition-colors  tracking-wide text-sm font-medium"
-              >
-                Importaciones
-              </Link>
-              <Link
-                href="#revision"
-                className="text-[#CCCCCC] hover:text-white transition-colors  tracking-wide text-sm font-medium"
-              >
-                Revisión
-              </Link>
-              <Link
-                href="#transporte"
-                className="text-[#CCCCCC] hover:text-white transition-colors  tracking-wide text-sm font-medium"
-              >
-                Transporte
-              </Link>
-              <Link
-                href="#contacto"
-                className="text-[#CCCCCC] hover:text-white transition-colors  tracking-wide text-sm font-medium"
-              >
-                Contacto
-              </Link>
-            </nav>
-
-            <div className="flex items-center space-x-4">
-              <Link
-                href="https://docs.google.com/forms/d/e/1FAIpQLSeJ6KOuRJ1BTxZPfj7kUfAuWg7cPz5FRJMK6zynTCTVqS8BoQ/viewform?fbclid=PAQ0xDSwL8kqNleHRuA2FlbQIxMQABpxRImY7jglXjucWsm4W0YNv7bfoXXZzk8n7u_zrxtRGKohhdZbCwQeHiKnKW_aem_l5Uf-LG7zGaNHoVQhfm8uQ"
-                target="_blank"
-              >
-                <Button className="bg-[#D50000] hover:bg-[#B71C1C] text-white border-0  tracking-wide font-bold">
-                  Presupuesto
-                  <ArrowRight className="ml-2 w-4 h-4" />
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </header>
+    <div className="min-h-screen bg-black">
+      <Navbar />
 
       {/* Hero Section */}
       <section className="py-20 lg:py-32 bg-black relative overflow-hidden">
@@ -124,14 +54,12 @@ export default function FMPremiumCarsLanding() {
                 <Button
                   size="lg"
                   className="text-lg px-8 py-6 bg-[#D50000] hover:bg-[#B71C1C] text-white border-0  tracking-wide font-bold"
+                  asChild
                 >
-                  <a
-                    href="https://docs.google.com/forms/d/e/1FAIpQLSeJ6KOuRJ1BTxZPfj7kUfAuWg7cPz5FRJMK6zynTCTVqS8BoQ/viewform?fbclid=PAQ0xDSwL8kqNleHRuA2FlbQIxMQABpxRImY7jglXjucWsm4W0YNv7bfoXXZzk8n7u_zrxtRGKohhdZbCwQeHiKnKW_aem_l5Uf-LG7zGaNHoVQhfm8uQ"
-                    target="_blank"
-                  >
+                  <Link href="/presupuesto">
                     SOLICITÁ TU PRESUPUESTO
-                  </a>
-                  <ArrowRight className="ml-2 w-5 h-5" />
+                    <ArrowRight className="ml-2 w-5 h-5" />
+                  </Link>
                 </Button>
                 <Button
                   variant="outline"
@@ -155,6 +83,9 @@ export default function FMPremiumCarsLanding() {
           </div>
         </div>
       </section>
+
+      <ServicesSection />
+      <CarSection />
 
       {/* ¿Cómo funciona? - Proceso de importación */}
       <section id="proceso" className="py-20 bg-black">
@@ -239,369 +170,11 @@ export default function FMPremiumCarsLanding() {
         </div>
       </section>
 
-      {/* Nuestras Importaciones - Photo Gallery */}
-      <section id="importaciones" className="py-20 bg-[#1a1a1a]">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center space-y-4 mb-16">
-            <Badge
-              variant="secondary"
-              className="w-fit mx-auto bg-[#D50000] text-white border-0  tracking-wider font-bold"
-            >
-              Galería
-            </Badge>
-            <h2 className="text-3xl sm:text-4xl font-racing text-white  tracking-tight">
-              Nuestras importaciones
-            </h2>
-            <p className="text-xl text-[#CCCCCC]  tracking-wide">
-              Vehículos premium importados con éxito desde Alemania
-            </p>
-          </div>
+      {/* Nuestras Importaciones - Photo Gallery - REMOVED, replaced by CarSection */}
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div className="relative group overflow-hidden rounded-lg">
-              <Image
-                src="/imp1.jpg"
-                alt="BMW M3 importado"
-                width={600}
-                height={400}
-                className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-70 transition-opacity duration-300 flex items-end">
-                <div className="p-4 text-white">
-                  <h3 className="font-racing text-lg ">Audi Q8</h3>
-                  <p className="text-[#CCCCCC] text-sm ">2021 • Alemania</p>
-                </div>
-              </div>
-            </div>
+      {/* Revisión presencial en Alemania - REMOVED, now in /servicios/importacion */}
 
-            <div className="relative group overflow-hidden rounded-lg">
-              <Image
-                src="/imp2.jpg"
-                alt="Mercedes AMG GT importado"
-                width={600}
-                height={400}
-                className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-70 transition-opacity duration-300 flex items-end">
-                <div className="p-4 text-white">
-                  <h3 className="font-racing text-lg ">Golf</h3>
-                  <p className="text-[#CCCCCC] text-sm ">2010 • Alemania</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="relative group overflow-hidden rounded-lg">
-              <Image
-                src="/imp3.jpg"
-                alt="Audi RS6 importado"
-                width={600}
-                height={400}
-                className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-70 transition-opacity duration-300 flex items-end">
-                <div className="p-4 text-white">
-                  <h3 className="font-racing text-lg ">
-                    Mercedes Benz GLC 300e
-                  </h3>
-                  <p className="text-[#CCCCCC] text-sm ">2020 • Alemania</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="relative group overflow-hidden rounded-lg">
-              <Image
-                src="/imp4.jpg"
-                alt="Porsche 911 GT3 importado"
-                width={600}
-                height={400}
-                className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-70 transition-opacity duration-300 flex items-end">
-                <div className="p-4 text-white">
-                  <h3 className="font-racing text-lg ">BMW 116i</h3>
-                  <p className="text-[#CCCCCC] text-sm ">2009 • Alemania</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="relative group overflow-hidden rounded-lg">
-              <Image
-                src="/imp5.jpg"
-                alt="BMW M4 Competition importado"
-                width={600}
-                height={400}
-                className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-70 transition-opacity duration-300 flex items-end">
-                <div className="p-4 text-white">
-                  <h3 className="font-racing text-lg ">Golf Variant</h3>
-                  <p className="text-[#CCCCCC] text-sm ">2011 • Alemania</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="relative group overflow-hidden rounded-lg">
-              <Image
-                src="/imp6.jpg"
-                alt="BMW M4 Competition importado"
-                width={600}
-                height={400}
-                className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-70 transition-opacity duration-300 flex items-end">
-                <div className="p-4 text-white">
-                  <h3 className="font-racing text-lg ">BMW 118i</h3>
-                  <p className="text-[#CCCCCC] text-sm ">2017 • Alemania</p>
-                </div>
-              </div>
-            </div>
-
-            {/*             <div className="relative group overflow-hidden rounded-lg">
-              <Image
-                src="/placeholder.svg?height=400&width=600"
-                alt="Mercedes C63 AMG importado"
-                width={600}
-                height={400}
-                className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
-                <div className="p-4 text-white">
-                  <h3 className="font-racing text-lg ">Mercedes C63 AMG</h3>
-                  <p className="text-[#CCCCCC] text-sm ">2022 • Alemania</p>
-                </div>
-              </div>
-            </div> */}
-          </div>
-
-          {/*           <div className="text-center mt-12">
-            <Button
-              size="lg"
-              className="bg-[#D50000] hover:bg-[#B71C1C] text-white border-0  tracking-wide font-bold"
-            >
-              Ver más importaciones
-              <ArrowRight className="ml-2 w-5 h-5" />
-            </Button>
-          </div> */}
-        </div>
-      </section>
-
-      {/* Revisión presencial en Alemania */}
-      <section id="revision" className="py-20 bg-black">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center space-y-4 mb-16">
-            <Badge
-              variant="secondary"
-              className="w-fit mx-auto bg-[#D50000] text-white border-0  tracking-wider font-bold"
-            >
-              Verificación
-            </Badge>
-            <h2 className="text-3xl sm:text-4xl font-racing text-white  tracking-tight">
-              Revisión presencial en Alemania
-            </h2>
-            <p className="text-xl text-[#CCCCCC]  tracking-wide">
-              Inspección completa y profesional antes de la compra
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            <div className="flex items-start space-x-4 bg-[#1a1a1a] p-6 rounded-lg shadow-md">
-              <div className="w-10 h-10 bg-[#D50000] rounded-sm flex items-center justify-center flex-shrink-0">
-                <Paintbrush className="w-5 h-5 text-white" />
-              </div>
-              <div>
-                <h3 className="font-semibold text-white mb-2  tracking-wide font-racing">
-                  Medición de espesor de pintura
-                </h3>
-                <p className="text-sm text-[#CCCCCC]  tracking-wide">
-                  Verificación completa del estado de la carrocería
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-start space-x-4 bg-[#1a1a1a] p-6 rounded-lg shadow-md">
-              <div className="w-10 h-10 bg-[#D50000] rounded-sm flex items-center justify-center flex-shrink-0">
-                <Wrench className="w-5 h-5 text-white" />
-              </div>
-              <div>
-                <h3 className="font-semibold text-white mb-2  tracking-wide font-racing">
-                  Revisión de bajos y motor
-                </h3>
-                <p className="text-sm text-[#CCCCCC]  tracking-wide">
-                  Control de óxidos, fugas y estado general
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-start space-x-4 bg-[#1a1a1a] p-6 rounded-lg shadow-md">
-              <div className="w-10 h-10 bg-[#D50000] rounded-sm flex items-center justify-center flex-shrink-0">
-                <Lightbulb className="w-5 h-5 text-white" />
-              </div>
-              <div>
-                <h3 className="font-semibold text-white mb-2  tracking-wide font-racing">
-                  Verificación de faros y tornillería
-                </h3>
-                <p className="text-sm text-[#CCCCCC]  tracking-wide">
-                  Inspección de fecha de fabricación y componentes
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-start space-x-4 bg-[#1a1a1a] p-6 rounded-lg shadow-md">
-              <div className="w-10 h-10 bg-[#D50000] rounded-sm flex items-center justify-center flex-shrink-0">
-                <Zap className="w-5 h-5 text-white" />
-              </div>
-              <div>
-                <h3 className="font-semibold text-white mb-2  tracking-wide font-racing">
-                  Diagnóstico electrónico
-                </h3>
-                <p className="text-sm text-[#CCCCCC]  tracking-wide">
-                  Verificación de kilometraje y sistemas
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-start space-x-4 bg-[#1a1a1a] p-6 rounded-lg shadow-md">
-              <div className="w-10 h-10 bg-[#D50000] rounded-sm flex items-center justify-center flex-shrink-0">
-                <ClipboardCheck className="w-5 h-5 text-white" />
-              </div>
-              <div>
-                <h3 className="font-semibold text-white mb-2  tracking-wide font-racing">
-                  Historial de mantenimiento
-                </h3>
-                <p className="text-sm text-[#CCCCCC]  tracking-wide">
-                  Revisión completa de servicios y ITV
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-start space-x-4 bg-[#1a1a1a] p-6 rounded-lg shadow-md">
-              <div className="w-10 h-10 bg-[#D50000] rounded-sm flex items-center justify-center flex-shrink-0">
-                <Shield className="w-5 h-5 text-white" />
-              </div>
-              <div>
-                <h3 className="font-semibold text-white mb-2  tracking-wide font-racing">
-                  Documentación completa
-                </h3>
-                <p className="text-sm text-[#CCCCCC]  tracking-wide">
-                  Verificación de toda la papelería legal
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Transporte y entrega en España */}
-      <section id="transporte" className="py-20 bg-[#1a1a1a]">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
-              <Badge
-                variant="secondary"
-                className="w-fit bg-[#D50000] text-white border-0  tracking-wider font-bold"
-              >
-                Entrega
-              </Badge>
-              <h2 className="text-3xl sm:text-4xl font-racing text-white  tracking-tight">
-                Transporte y entrega en España
-              </h2>
-              <p className="text-xl text-[#CCCCCC] leading-relaxed  tracking-wide">
-                Nos ocupamos de todo. Vos solo disfrutás tu coche importado,
-                legal y verificado.
-              </p>
-              <p className="text-lg text-[#CCCCCC]  tracking-wide">
-                Nuestro servicio incluye el acompañamiento completo durante todo
-                el proceso de matriculación y entrega en España. Manejamos todos
-                los trámites legales para que recibas tu vehículo completamente
-                legalizado y listo para circular.
-              </p>
-              <div className="flex items-center space-x-4 p-4 bg-black rounded-lg">
-                <div className="w-12 h-12 bg-[#D50000] rounded-sm flex items-center justify-center">
-                  <Truck className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-white  tracking-wide font-racing">
-                    Transporte seguro
-                  </h3>
-                  <p className="text-[#CCCCCC]  tracking-wide">
-                    Entrega puerta a puerta con seguro completo
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="relative">
-              <Image
-                src="/car2.jpg"
-                alt="Transporte de coches desde Alemania"
-                width={600}
-                height={500}
-                className="rounded-lg shadow-xl"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Formas de pago */}
-      {/*       <section className="py-20 bg-black">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center space-y-4 mb-16">
-            <Badge
-              variant="secondary"
-              className="w-fit mx-auto bg-[#D50000] text-white border-0  tracking-wider font-bold"
-            >
-              Pago
-            </Badge>
-            <h2 className="text-3xl sm:text-4xl font-racing text-white  tracking-tight">Formas de pago</h2>
-            <p className="text-xl text-[#CCCCCC]  tracking-wide">Modalidad de pago flexible y segura</p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <Card className="border-2 border-[#D50000] hover:border-[#B71C1C] transition-colors bg-[#1a1a1a] text-white">
-              <CardHeader className="text-center">
-                <div className="w-16 h-16 bg-[#D50000] rounded-sm flex items-center justify-center mx-auto mb-4">
-                  <CreditCard className="w-8 h-8 text-white" />
-                </div>
-                <CardTitle className="text-2xl text-[#D50000]  tracking-wide font-bold font-racing">
-                  70%
-                </CardTitle>
-                <CardDescription className="text-lg  tracking-wide">Al reservar en Alemania</CardDescription>
-              </CardHeader>
-              <CardContent className="text-center">
-                <p className="text-[#CCCCCC]  tracking-wide">
-                  Abono inicial para asegurar la reserva y comenzar el proceso de verificación
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2 border-[#D50000] hover:border-[#B71C1C] transition-colors bg-[#1a1a1a] text-white">
-              <CardHeader className="text-center">
-                <div className="w-16 h-16 bg-[#D50000] rounded-sm flex items-center justify-center mx-auto mb-4">
-                  <CheckCircle className="w-8 h-8 text-white" />
-                </div>
-                <CardTitle className="text-2xl text-[#D50000]  tracking-wide font-bold font-racing">
-                  30%
-                </CardTitle>
-                <CardDescription className="text-lg  tracking-wide">Al recibirlo en España</CardDescription>
-              </CardHeader>
-              <CardContent className="text-center">
-                <p className="text-[#CCCCCC]  tracking-wide">
-                  Pago final al momento de la entrega del vehículo matriculado
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-
-          <div className="mt-12 max-w-3xl mx-auto">
-            <div className="bg-[#1a1a1a] border border-[#D50000] rounded-lg p-6">
-              <p className="text-sm text-[#D50000] text-center  tracking-wide">
-                <strong>Nota legal:</strong> El coste del vehículo se abona por transferencia inmediata o en efectivo
-                (presencial en Alemania).
-              </p>
-            </div>
-          </div>
-        </div>
-      </section> */}
+      {/* Transporte y entrega en España - REMOVED, now in /servicios/importacion */}
 
       {/* Contacto directo */}
       <section id="contacto" className="py-20 bg-black">
@@ -694,37 +267,33 @@ export default function FMPremiumCarsLanding() {
         </div>
       </section>
 
-      {/* Formulario de contacto */}
-      <section id="formulario" className="py-20 bg-[#1a1a1a]">
+      {/* CTA Presupuesto */}
+      <section className="py-20 bg-[#1a1a1a]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="max-w-3xl mx-auto space-y-8">
-            <h2 className="text-3xl sm:text-4xl font-racing text-white  tracking-tight">
+            <h2 className="text-3xl sm:text-4xl font-racing text-white tracking-tight">
               ¿Querés que te contactemos?
             </h2>
-            <p className="text-xl text-[#CCCCCC]  tracking-wide">
-              Completá el siguiente formulario y uno de nuestros expertos se
-              pondrá en contacto con vos para asesorarte.
+            <p className="text-xl text-[#CCCCCC] tracking-wide">
+              Solicita tu presupuesto personalizado y uno de nuestros expertos se
+              pondrá en contacto contigo en menos de 24 horas.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
                 size="lg"
-                variant="secondary"
-                className="text-lg px-8 py-6 bg-[#D50000] text-white border-0  tracking-wide font-bold"
+                className="text-lg px-8 py-6 bg-[#D50000] hover:bg-[#B71C1C] text-white border-0 tracking-wide font-bold"
                 asChild
               >
-                <Link
-                  href="https://docs.google.com/forms/d/e/1FAIpQLSeJ6KOuRJ1BTxZPfj7kUfAuWg7cPz5FRJMK6zynTCTVqS8BoQ/viewform?fbclid=PAQ0xDSwL8kqNleHRuA2FlbQIxMQABpxRImY7jglXjucWsm4W0YNv7bfoXXZzk8n7u_zrxtRGKohhdZbCwQeHiKnKW_aem_l5Uf-LG7zGaNHoVQhfm8uQ"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Ir al formulario
+                <Link href="/presupuesto">
+                  Solicitar presupuesto
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Link>
               </Button>
               <Button
                 size="lg"
                 variant="outline"
-                className="text-lg px-8 py-6 border-[#CCCCCC] text-white hover:bg-[#CCCCCC] hover:text-black  tracking-wide font-bold bg-transparent"
+                className="text-lg px-8 py-6 border-[#CCCCCC] text-white hover:bg-[#CCCCCC] hover:text-black tracking-wide font-bold bg-transparent"
+                asChild
               >
                 <Link
                   href="https://api.whatsapp.com/send?phone=34641774061"
@@ -736,9 +305,8 @@ export default function FMPremiumCarsLanding() {
                 </Link>
               </Button>
             </div>
-            <p className="text-sm text-[#CCCCCC]  tracking-wide">
-              Respuesta garantizada en menos de 24 horas • Asesoramiento
-              gratuito
+            <p className="text-sm text-[#CCCCCC] tracking-wide">
+              Respuesta garantizada en menos de 24 horas • Asesoramiento gratuito
             </p>
           </div>
         </div>
@@ -816,6 +384,7 @@ export default function FMPremiumCarsLanding() {
           </div>
         </div>
       </footer>
+      <WhatsAppButton />
     </div>
   );
 }

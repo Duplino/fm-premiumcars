@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "modelo": "Audi Q8 55 TFSI",
+    "año": 2021,
+    "origen": "Alemania",
+    "estado": "importado",
+    "imagen": "/imp1.jpg",
+    "destacado": true
+  },
+  {
+    "id": 2,
+    "modelo": "Volkswagen Golf GTI",
+    "año": 2020,
+    "origen": "Alemania",
+    "estado": "importado",
+    "imagen": "/imp2.jpg",
+    "destacado": true
+  },
+  {
+    "id": 3,
+    "modelo": "Mercedes-Benz GLC 300e",
+    "año": 2022,
+    "origen": "Alemania",
+    "estado": "stock",
+    "imagen": "/imp3.jpg",
+    "destacado": true
+  },
+  {
+    "id": 4,
+    "modelo": "BMW 116i Sport",
+    "año": 2019,
+    "origen": "Alemania",
+    "estado": "importado",
+    "imagen": "/imp4.jpg",
+    "destacado": false
+  },
+  {
+    "id": 5,
+    "modelo": "Volkswagen Golf Variant",
+    "año": 2018,
+    "origen": "Alemania",
+    "estado": "stock",
+    "imagen": "/imp5.jpg",
+    "destacado": false
+  },
+  {
+    "id": 6,
+    "modelo": "BMW 118i Edition",
+    "año": 2020,
+    "origen": "Alemania",
+    "estado": "stock",
+    "imagen": "/imp6.jpg",
+    "destacado": false
+  }
+]
