@@ -125,6 +125,37 @@
   scroll-behavior: smooth;
 }
 
+/* Dual range slider – overlapping inputs share a track */
+.dual-range-input {
+  pointer-events: none;
+}
+.dual-range-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  background: #D50000;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  cursor: grab;
+  pointer-events: all;
+}
+.dual-range-input::-webkit-slider-runnable-track {
+  background: transparent;
+}
+.dual-range-input::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  background: #D50000;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  cursor: grab;
+  pointer-events: all;
+}
+.dual-range-input::-moz-range-track {
+  background: transparent;
+}
+
 @font-face {
   font-family: 'Boldonse';
   src: url('/fonts/Boldonse-Regular.ttf') format('truetype');

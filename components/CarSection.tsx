@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -55,10 +55,27 @@ function CarCard({ car }: { car: Car }) {
 
 export default function CarSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [itemsPerPage, setItemsPerPage] = useState(1);
   const total = rest.length;
 
-  const prev = () => setCurrentIndex((i) => (i - 1 + total) % total);
-  const next = () => setCurrentIndex((i) => (i + 1) % total);
+  useEffect(() => {
+    const update = () => setItemsPerPage(window.innerWidth >= 768 ? 3 : 1);
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+
+  const maxIndex = Math.max(0, total - itemsPerPage);
+
+  // Clamp index when screen size changes
+  useEffect(() => {
+    setCurrentIndex((i) => Math.min(i, maxIndex));
+  }, [maxIndex]);
+
+  const prev = () => setCurrentIndex((i) => Math.max(i - 1, 0));
+  const next = () => setCurrentIndex((i) => Math.min(i + 1, maxIndex));
+
+  const cardWidth = itemsPerPage > 1 ? `${100 / itemsPerPage}%` : "100%";
 
   return (
     <section id="autos" className="py-20 bg-black">
@@ -92,7 +109,8 @@ export default function CarSection() {
             <div className="relative flex items-center gap-4">
               <button
                 onClick={prev}
-                className="shrink-0 w-10 h-10 bg-[#D50000] hover:bg-[#B71C1C] rounded-full flex items-center justify-center text-white transition-colors"
+                disabled={currentIndex === 0}
+                className="shrink-0 w-10 h-10 bg-[#D50000] hover:bg-[#B71C1C] disabled:opacity-30 rounded-full flex items-center justify-center text-white transition-colors"
                 aria-label="Anterior"
               >
                 <ChevronLeft className="w-5 h-5" />
@@ -101,13 +119,17 @@ export default function CarSection() {
               <div className="flex-1 overflow-hidden">
                 <div
                   className="flex transition-transform duration-500 ease-in-out"
-                  style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+                  style={{
+                    transform: `translateX(-${currentIndex * (100 / itemsPerPage)}%)`,
+                  }}
                 >
                   {rest.map((car) => (
-                    <div key={car.id} className="min-w-full px-2">
-                      <div className="max-w-sm mx-auto">
-                        <CarCard car={car} />
-                      </div>
+                    <div
+                      key={car.id}
+                      className="shrink-0 px-2"
+                      style={{ width: cardWidth }}
+                    >
+                      <CarCard car={car} />
                     </div>
                   ))}
                 </div>
@@ -115,26 +137,29 @@ export default function CarSection() {
 
               <button
                 onClick={next}
-                className="shrink-0 w-10 h-10 bg-[#D50000] hover:bg-[#B71C1C] rounded-full flex items-center justify-center text-white transition-colors"
+                disabled={currentIndex >= maxIndex}
+                className="shrink-0 w-10 h-10 bg-[#D50000] hover:bg-[#B71C1C] disabled:opacity-30 rounded-full flex items-center justify-center text-white transition-colors"
                 aria-label="Siguiente"
               >
                 <ChevronRight className="w-5 h-5" />
               </button>
             </div>
 
-            {/* Dots */}
-            <div className="flex justify-center gap-2 mt-6">
-              {rest.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setCurrentIndex(i)}
-                  className={`w-2 h-2 rounded-full transition-colors ${
-                    i === currentIndex ? "bg-[#D50000]" : "bg-[#444444]"
-                  }`}
-                  aria-label={`Ir al vehículo ${i + 1}`}
-                />
-              ))}
-            </div>
+            {/* Dots – one per valid page position */}
+            {maxIndex > 0 && (
+              <div className="flex justify-center gap-2 mt-6">
+                {Array.from({ length: maxIndex + 1 }).map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setCurrentIndex(i)}
+                    className={`w-2 h-2 rounded-full transition-colors ${
+                      i === currentIndex ? "bg-[#D50000]" : "bg-[#444444]"
+                    }`}
+                    aria-label={`Ir a la posición ${i + 1}`}
+                  />
+                ))}
+              </div>
+            )}
           </div>
         )}
       </div>

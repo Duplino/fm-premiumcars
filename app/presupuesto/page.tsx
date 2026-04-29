@@ -160,45 +160,55 @@ export default function PresupuestoPage() {
                 </div>
               </div>
 
-              {/* Year range */}
+              {/* Year range – dual-handle slider */}
               <div>
                 <label className={labelClass}>
                   Año del vehículo:{" "}
-                  <span className="text-white">
+                  <span className="text-white font-bold">
                     {form.añoMin} – {form.añoMax}
                   </span>
                 </label>
-                <div className="space-y-3 mt-2">
-                  <div className="flex items-center gap-3">
-                    <span className="text-xs text-[#999999] w-16">Desde</span>
-                    <input
-                      type="range"
-                      min={1990}
-                      max={2024}
-                      value={form.añoMin}
-                      onChange={(e) => {
-                        const val = Number(e.target.value);
-                        set("añoMin", Math.min(val, form.añoMax));
-                      }}
-                      className="flex-1 accent-[#D50000]"
-                    />
-                    <span className="text-sm text-white w-12 text-right">{form.añoMin}</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <span className="text-xs text-[#999999] w-16">Hasta</span>
-                    <input
-                      type="range"
-                      min={1990}
-                      max={2024}
-                      value={form.añoMax}
-                      onChange={(e) => {
-                        const val = Number(e.target.value);
-                        set("añoMax", Math.max(val, form.añoMin));
-                      }}
-                      className="flex-1 accent-[#D50000]"
-                    />
-                    <span className="text-sm text-white w-12 text-right">{form.añoMax}</span>
-                  </div>
+                <div className="relative mt-5 h-5">
+                  {/* Track */}
+                  <div className="absolute top-1/2 -translate-y-1/2 left-0 right-0 h-2 bg-[#333333] rounded-full" />
+                  {/* Filled range */}
+                  <div
+                    className="absolute top-1/2 -translate-y-1/2 h-2 bg-[#D50000] rounded-full pointer-events-none"
+                    style={{
+                      left: `${((form.añoMin - 1990) / (2024 - 1990)) * 100}%`,
+                      right: `${100 - ((form.añoMax - 1990) / (2024 - 1990)) * 100}%`,
+                    }}
+                  />
+                  {/* Min handle */}
+                  <input
+                    type="range"
+                    min={1990}
+                    max={2024}
+                    value={form.añoMin}
+                    onChange={(e) => {
+                      const val = Math.min(Number(e.target.value), form.añoMax - 1);
+                      set("añoMin", val);
+                    }}
+                    className="dual-range-input absolute w-full h-2 top-1/2 -translate-y-1/2 appearance-none bg-transparent"
+                    style={{ zIndex: form.añoMin > 2007 ? 5 : 3 }}
+                  />
+                  {/* Max handle */}
+                  <input
+                    type="range"
+                    min={1990}
+                    max={2024}
+                    value={form.añoMax}
+                    onChange={(e) => {
+                      const val = Math.max(Number(e.target.value), form.añoMin + 1);
+                      set("añoMax", val);
+                    }}
+                    className="dual-range-input absolute w-full h-2 top-1/2 -translate-y-1/2 appearance-none bg-transparent"
+                    style={{ zIndex: form.añoMax < 2007 ? 5 : 3 }}
+                  />
+                </div>
+                <div className="flex justify-between text-xs text-[#666666] mt-2 px-1">
+                  <span>1990</span>
+                  <span>2024</span>
                 </div>
               </div>
 
