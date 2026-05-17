@@ -6,6 +6,12 @@ import Image from "next/image";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+const AÑO_MIN = 1990;
+const AÑO_MAX = 2024;
+const PRESUPUESTO_MIN = 10000;
+const PRESUPUESTO_MAX = 150000;
+const PRESUPUESTO_STEP = 1000;
+
 type FormData = {
   nombre: string;
   contacto: string;
@@ -17,6 +23,9 @@ type FormData = {
   transmision: string;
   combustible: string;
   carroceria: string;
+  presupuestoMin: number;
+  presupuestoMax: number;
+  extras: string;
 };
 
 const initialForm: FormData = {
@@ -30,6 +39,9 @@ const initialForm: FormData = {
   transmision: "Cualquiera",
   combustible: "Cualquiera",
   carroceria: "Cualquiera",
+  presupuestoMin: 15000,
+  presupuestoMax: 40000,
+  extras: "",
 };
 
 export default function PresupuestoPage() {
@@ -160,55 +172,81 @@ export default function PresupuestoPage() {
                 </div>
               </div>
 
-              {/* Year range – dual-handle slider */}
+              {/* Year range – dual-handle slider with editable inputs */}
               <div>
-                <label className={labelClass}>
-                  Año del vehículo:{" "}
-                  <span className="text-white font-bold">
-                    {form.añoMin} – {form.añoMax}
-                  </span>
-                </label>
-                <div className="relative mt-5 h-5">
-                  {/* Track */}
+                <label className={labelClass}>Año del vehículo</label>
+                {/* Editable number inputs */}
+                <div className="flex items-center gap-3 mb-4 mt-1">
+                  <div className="flex items-center gap-2 flex-1">
+                    <span className="text-xs text-[#999999] shrink-0">Desde</span>
+                    <input
+                      type="number"
+                      min={AÑO_MIN}
+                      max={AÑO_MAX}
+                      value={form.añoMin}
+                      onChange={(e) => {
+                        const val = Number(e.target.value);
+                        if (!isNaN(val) && val >= AÑO_MIN && val <= form.añoMax - 1)
+                          set("añoMin", val);
+                      }}
+                      className={`${inputClass} text-center`}
+                    />
+                  </div>
+                  <span className="text-[#666666]">–</span>
+                  <div className="flex items-center gap-2 flex-1">
+                    <span className="text-xs text-[#999999] shrink-0">Hasta</span>
+                    <input
+                      type="number"
+                      min={AÑO_MIN}
+                      max={AÑO_MAX}
+                      value={form.añoMax}
+                      onChange={(e) => {
+                        const val = Number(e.target.value);
+                        if (!isNaN(val) && val <= AÑO_MAX && val >= form.añoMin + 1)
+                          set("añoMax", val);
+                      }}
+                      className={`${inputClass} text-center`}
+                    />
+                  </div>
+                </div>
+                {/* Dual-handle slider */}
+                <div className="relative h-5">
                   <div className="absolute top-1/2 -translate-y-1/2 left-0 right-0 h-2 bg-[#333333] rounded-full" />
-                  {/* Filled range */}
                   <div
                     className="absolute top-1/2 -translate-y-1/2 h-2 bg-[#D50000] rounded-full pointer-events-none"
                     style={{
-                      left: `${((form.añoMin - 1990) / (2024 - 1990)) * 100}%`,
-                      right: `${100 - ((form.añoMax - 1990) / (2024 - 1990)) * 100}%`,
+                      left: `${((form.añoMin - AÑO_MIN) / (AÑO_MAX - AÑO_MIN)) * 100}%`,
+                      right: `${100 - ((form.añoMax - AÑO_MIN) / (AÑO_MAX - AÑO_MIN)) * 100}%`,
                     }}
                   />
-                  {/* Min handle */}
                   <input
                     type="range"
-                    min={1990}
-                    max={2024}
+                    min={AÑO_MIN}
+                    max={AÑO_MAX}
                     value={form.añoMin}
                     onChange={(e) => {
                       const val = Math.min(Number(e.target.value), form.añoMax - 1);
                       set("añoMin", val);
                     }}
                     className="dual-range-input absolute w-full h-2 top-1/2 -translate-y-1/2 appearance-none bg-transparent"
-                    style={{ zIndex: form.añoMin > 2007 ? 5 : 3 }}
+                    style={{ zIndex: form.añoMin > (AÑO_MIN + AÑO_MAX) / 2 ? 5 : 3 }}
                   />
-                  {/* Max handle */}
                   <input
                     type="range"
-                    min={1990}
-                    max={2024}
+                    min={AÑO_MIN}
+                    max={AÑO_MAX}
                     value={form.añoMax}
                     onChange={(e) => {
                       const val = Math.max(Number(e.target.value), form.añoMin + 1);
                       set("añoMax", val);
                     }}
                     className="dual-range-input absolute w-full h-2 top-1/2 -translate-y-1/2 appearance-none bg-transparent"
-                    style={{ zIndex: form.añoMax < 2007 ? 5 : 3 }}
+                    style={{ zIndex: form.añoMax < (AÑO_MIN + AÑO_MAX) / 2 ? 5 : 3 }}
                   />
                 </div>
                 <div className="flex justify-between text-xs text-[#666666] mt-2 px-1">
-                  <span>1990</span>
-                  <span>2024</span>
+                  <span>{AÑO_MIN}</span>
+                  <span>{AÑO_MAX}</span>
                 </div>
               </div>
 
@@ -292,6 +330,118 @@ export default function PresupuestoPage() {
                   )}
                 </select>
               </div>
+            </fieldset>
+
+            {/* Presupuesto */}
+            <fieldset className="bg-[#1a1a1a] rounded-lg p-6 space-y-6 border border-[#222222]">
+              <legend className="text-lg font-racing text-white px-2 -ml-2">Presupuesto</legend>
+              <p className="text-xs text-[#D50000] font-semibold tracking-wide -mt-2">
+                ⚠ No trabajamos con presupuestos por debajo de los 10.000€
+              </p>
+
+              {/* Editable number inputs */}
+              <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2 flex-1">
+                  <span className="text-xs text-[#999999] shrink-0">Desde</span>
+                  <div className="relative flex-1">
+                    <input
+                      type="number"
+                      min={PRESUPUESTO_MIN}
+                      max={PRESUPUESTO_MAX}
+                      step={PRESUPUESTO_STEP}
+                      value={form.presupuestoMin}
+                      onChange={(e) => {
+                        const val = Number(e.target.value);
+                        if (!isNaN(val) && val >= PRESUPUESTO_MIN && val < form.presupuestoMax)
+                          set("presupuestoMin", val);
+                      }}
+                      className={`${inputClass} pr-8 text-center`}
+                    />
+                    <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[#666666] text-sm pointer-events-none">€</span>
+                  </div>
+                </div>
+                <span className="text-[#666666]">–</span>
+                <div className="flex items-center gap-2 flex-1">
+                  <span className="text-xs text-[#999999] shrink-0">Hasta</span>
+                  <div className="relative flex-1">
+                    <input
+                      type="number"
+                      min={PRESUPUESTO_MIN}
+                      max={PRESUPUESTO_MAX}
+                      step={PRESUPUESTO_STEP}
+                      value={form.presupuestoMax}
+                      onChange={(e) => {
+                        const val = Number(e.target.value);
+                        if (!isNaN(val) && val <= PRESUPUESTO_MAX && val > form.presupuestoMin)
+                          set("presupuestoMax", val);
+                      }}
+                      className={`${inputClass} pr-8 text-center`}
+                    />
+                    <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[#666666] text-sm pointer-events-none">€</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Dual-handle slider */}
+              <div className="relative h-5">
+                <div className="absolute top-1/2 -translate-y-1/2 left-0 right-0 h-2 bg-[#333333] rounded-full" />
+                <div
+                  className="absolute top-1/2 -translate-y-1/2 h-2 bg-[#D50000] rounded-full pointer-events-none"
+                  style={{
+                    left: `${((form.presupuestoMin - PRESUPUESTO_MIN) / (PRESUPUESTO_MAX - PRESUPUESTO_MIN)) * 100}%`,
+                    right: `${100 - ((form.presupuestoMax - PRESUPUESTO_MIN) / (PRESUPUESTO_MAX - PRESUPUESTO_MIN)) * 100}%`,
+                  }}
+                />
+                <input
+                  type="range"
+                  min={PRESUPUESTO_MIN}
+                  max={PRESUPUESTO_MAX}
+                  step={PRESUPUESTO_STEP}
+                  value={form.presupuestoMin}
+                  onChange={(e) => {
+                    const val = Math.min(Number(e.target.value), form.presupuestoMax - PRESUPUESTO_STEP);
+                    set("presupuestoMin", val);
+                  }}
+                  className="dual-range-input absolute w-full h-2 top-1/2 -translate-y-1/2 appearance-none bg-transparent"
+                  style={{ zIndex: form.presupuestoMin > (PRESUPUESTO_MIN + PRESUPUESTO_MAX) / 2 ? 5 : 3 }}
+                />
+                <input
+                  type="range"
+                  min={PRESUPUESTO_MIN}
+                  max={PRESUPUESTO_MAX}
+                  step={PRESUPUESTO_STEP}
+                  value={form.presupuestoMax}
+                  onChange={(e) => {
+                    const val = Math.max(Number(e.target.value), form.presupuestoMin + PRESUPUESTO_STEP);
+                    set("presupuestoMax", val);
+                  }}
+                  className="dual-range-input absolute w-full h-2 top-1/2 -translate-y-1/2 appearance-none bg-transparent"
+                  style={{ zIndex: form.presupuestoMax < (PRESUPUESTO_MIN + PRESUPUESTO_MAX) / 2 ? 5 : 3 }}
+                />
+              </div>
+              <div className="flex justify-between text-xs text-[#666666] px-1">
+                <span>{PRESUPUESTO_MIN.toLocaleString("es-ES")}€</span>
+                <span>{PRESUPUESTO_MAX.toLocaleString("es-ES")}€</span>
+              </div>
+            </fieldset>
+
+            {/* Extras y equipamiento */}
+            <fieldset className="bg-[#1a1a1a] rounded-lg p-6 border border-[#222222]">
+              <legend className="text-lg font-racing text-white px-2 -ml-2">Extras y equipamiento</legend>
+              <p className="text-xs text-[#999999] mt-1 mb-4 leading-relaxed">
+                ¿Tienes preferencias sobre el equipamiento? Indica cuáles son imprescindibles o excluyentes.
+                <br />
+                <span className="text-[#666666]">
+                  Ejemplos: techo panorámico, cámara de reversa, asientos calefactables, navegación GPS, sensores de aparcamiento, llantas específicas...
+                </span>
+              </p>
+              <textarea
+                rows={4}
+                value={form.extras}
+                onChange={(e) => set("extras", e.target.value)}
+                placeholder="Escribe aquí tus preferencias o extras imprescindibles..."
+                className="w-full bg-[#111111] border border-[#333333] text-white rounded px-3 py-2 text-sm focus:outline-none focus:border-[#D50000] transition-colors resize-none"
+              />
             </fieldset>
 
             <Button

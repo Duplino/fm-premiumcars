@@ -66,21 +66,29 @@ const steps = [
 
 export default function ImportacionPage() {
   const [activeStep, setActiveStep] = useState(0);
-  const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const stepRefs = useRef<(HTMLElement | null)[]>([]);
 
   useEffect(() => {
-    const observers = stepRefs.current.map((ref, i) => {
-      if (!ref) return null;
-      const obs = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) setActiveStep(i);
-        },
-        { threshold: 0.4 }
-      );
-      obs.observe(ref);
-      return obs;
-    });
-    return () => observers.forEach((obs) => obs?.disconnect());
+    const updateActive = () => {
+      const viewportMid = window.innerHeight / 2;
+      let closestIdx = 0;
+      let closestDist = Infinity;
+      stepRefs.current.forEach((el, i) => {
+        if (!el) return;
+        const rect = el.getBoundingClientRect();
+        const sectionMid = rect.top + rect.height / 2;
+        const dist = Math.abs(sectionMid - viewportMid);
+        if (dist < closestDist) {
+          closestDist = dist;
+          closestIdx = i;
+        }
+      });
+      setActiveStep(closestIdx);
+    };
+
+    window.addEventListener("scroll", updateActive, { passive: true });
+    updateActive();
+    return () => window.removeEventListener("scroll", updateActive);
   }, []);
 
   return (
@@ -179,7 +187,7 @@ export default function ImportacionPage() {
           return (
             <section
               key={step.id}
-              ref={(el) => { stepRefs.current[i] = el as HTMLDivElement | null; }}
+              ref={(el) => { stepRefs.current[i] = el; }}
               className={`py-16 ${isEven ? "bg-[#0d0d0d]" : "bg-[#1a1a1a]"}`}
             >
               <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
