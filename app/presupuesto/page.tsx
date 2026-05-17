@@ -186,7 +186,7 @@ export default function PresupuestoPage() {
                       value={form.añoMin}
                       onChange={(e) => {
                         const val = Number(e.target.value);
-                        if (!isNaN(val) && val >= AÑO_MIN && val <= form.añoMax - 1)
+                        if (!isNaN(val) && val >= AÑO_MIN && val <= form.añoMax)
                           set("añoMin", val);
                       }}
                       className={`${inputClass} text-center`}
@@ -202,7 +202,7 @@ export default function PresupuestoPage() {
                       value={form.añoMax}
                       onChange={(e) => {
                         const val = Number(e.target.value);
-                        if (!isNaN(val) && val <= AÑO_MAX && val >= form.añoMin + 1)
+                        if (!isNaN(val) && val <= AÑO_MAX && val >= form.añoMin)
                           set("añoMax", val);
                       }}
                       className={`${inputClass} text-center`}
@@ -225,7 +225,7 @@ export default function PresupuestoPage() {
                     max={AÑO_MAX}
                     value={form.añoMin}
                     onChange={(e) => {
-                      const val = Math.min(Number(e.target.value), form.añoMax - 1);
+                      const val = Math.min(Number(e.target.value), form.añoMax);
                       set("añoMin", val);
                     }}
                     className="dual-range-input absolute w-full h-2 top-1/2 -translate-y-1/2 appearance-none bg-transparent"
@@ -237,7 +237,7 @@ export default function PresupuestoPage() {
                     max={AÑO_MAX}
                     value={form.añoMax}
                     onChange={(e) => {
-                      const val = Math.max(Number(e.target.value), form.añoMin + 1);
+                      const val = Math.max(Number(e.target.value), form.añoMin);
                       set("añoMax", val);
                     }}
                     className="dual-range-input absolute w-full h-2 top-1/2 -translate-y-1/2 appearance-none bg-transparent"
@@ -352,7 +352,7 @@ export default function PresupuestoPage() {
                       value={form.presupuestoMin}
                       onChange={(e) => {
                         const val = Number(e.target.value);
-                        if (!isNaN(val) && val >= PRESUPUESTO_MIN && val < form.presupuestoMax)
+                        if (!isNaN(val) && val >= PRESUPUESTO_MIN && val <= form.presupuestoMax)
                           set("presupuestoMin", val);
                       }}
                       className={`${inputClass} pr-8 text-center`}
@@ -372,7 +372,7 @@ export default function PresupuestoPage() {
                       value={form.presupuestoMax}
                       onChange={(e) => {
                         const val = Number(e.target.value);
-                        if (!isNaN(val) && val <= PRESUPUESTO_MAX && val > form.presupuestoMin)
+                        if (!isNaN(val) && val <= PRESUPUESTO_MAX && val >= form.presupuestoMin)
                           set("presupuestoMax", val);
                       }}
                       className={`${inputClass} pr-8 text-center`}
@@ -399,7 +399,7 @@ export default function PresupuestoPage() {
                   step={PRESUPUESTO_STEP}
                   value={form.presupuestoMin}
                   onChange={(e) => {
-                    const val = Math.min(Number(e.target.value), form.presupuestoMax - PRESUPUESTO_STEP);
+                    const val = Math.min(Number(e.target.value), form.presupuestoMax);
                     set("presupuestoMin", val);
                   }}
                   className="dual-range-input absolute w-full h-2 top-1/2 -translate-y-1/2 appearance-none bg-transparent"
@@ -412,7 +412,7 @@ export default function PresupuestoPage() {
                   step={PRESUPUESTO_STEP}
                   value={form.presupuestoMax}
                   onChange={(e) => {
-                    const val = Math.max(Number(e.target.value), form.presupuestoMin + PRESUPUESTO_STEP);
+                    const val = Math.max(Number(e.target.value), form.presupuestoMin);
                     set("presupuestoMax", val);
                   }}
                   className="dual-range-input absolute w-full h-2 top-1/2 -translate-y-1/2 appearance-none bg-transparent"
