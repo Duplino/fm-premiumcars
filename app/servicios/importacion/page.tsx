@@ -2,9 +2,8 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import {
-  ArrowLeft,
+  ArrowRight,
   Search,
   ClipboardCheck,
   Wrench,
@@ -14,6 +13,7 @@ import {
   Zap,
   Shield,
 } from "lucide-react";
+import Navbar from "@/components/Navbar";
 
 const steps = [
   {
@@ -93,41 +93,32 @@ export default function ImportacionPage() {
 
   return (
     <div className="min-h-screen bg-black text-white">
-      {/* Sticky header with integrated horizontal progress bar */}
-      <header className="sticky top-0 z-50 bg-[#0a0a0a] border-b border-[#222222]">
-        {/* Top row: back + logo */}
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between py-3">
-            <Link
-              href="/"
-              className="flex items-center gap-2 text-[#CCCCCC] hover:text-white transition-colors text-sm"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              Volver al inicio
-            </Link>
-            <Image src="/logo.png" alt="FM Premium Cars" width={80} height={80} />
-          </div>
-        </div>
+      <Navbar />
 
-        {/* Progress bar row */}
-        <div className="border-t border-[#1a1a1a] bg-[#0d0d0d] px-4 py-3">
-          <div className="container mx-auto max-w-2xl">
-            <div className="flex items-center justify-between">
+      <header className="sticky top-[89px] z-40 border-b border-[#222222] bg-[#0d0d0d] px-4 py-3 md:top-[91px]">
+        <div className="container mx-auto max-w-2xl">
+          <div className="flex items-center justify-between">
               {steps.map((step, i) => {
                 const Icon = step.icon;
                 const isActive = i === activeStep;
                 const isPast = i < activeStep;
                 return (
                   <div key={step.id} className="flex items-center flex-1">
-                    {/* Step dot */}
-                    <div className="flex flex-col items-center gap-1">
+                    <button
+                      type="button"
+                      aria-label={`Ir a ${step.title}`}
+                      onClick={() =>
+                        stepRefs.current[i]?.scrollIntoView({ behavior: "smooth", block: "start" })
+                      }
+                      className="flex flex-col items-center gap-1"
+                    >
                       <div
                         className={`w-8 h-8 rounded-full flex items-center justify-center border-2 transition-all duration-500 ${
                           isActive
                             ? "bg-[#D50000] border-[#D50000] scale-110"
                             : isPast
-                            ? "bg-[#B71C1C] border-[#B71C1C]"
-                            : "bg-[#111111] border-[#444444]"
+                              ? "bg-[#B71C1C] border-[#B71C1C]"
+                              : "bg-[#111111] border-[#444444]"
                         }`}
                       >
                         <Icon className="w-3.5 h-3.5 text-white" />
@@ -139,8 +130,8 @@ export default function ImportacionPage() {
                       >
                         {step.title}
                       </span>
-                    </div>
-                    {/* Connector line (not after last) */}
+                    </button>
+
                     {i < steps.length - 1 && (
                       <div className="flex-1 mx-2 h-0.5 transition-colors duration-500 relative">
                         <div className="absolute inset-0 bg-[#222222] rounded-full" />
@@ -153,7 +144,6 @@ export default function ImportacionPage() {
                   </div>
                 );
               })}
-            </div>
           </div>
         </div>
       </header>
@@ -179,7 +169,7 @@ export default function ImportacionPage() {
         </div>
       </section>
 
-      {/* Steps – scrollable, each tracked by IntersectionObserver */}
+      {/* Steps */}
       <div className="py-8 space-y-6">
         {steps.map((step, i) => {
           const Icon = step.icon;
@@ -188,7 +178,7 @@ export default function ImportacionPage() {
             <section
               key={step.id}
               ref={(el) => { stepRefs.current[i] = el; }}
-              className={`py-16 ${isEven ? "bg-[#0d0d0d]" : "bg-[#1a1a1a]"}`}
+              className={`min-h-screen scroll-mt-44 flex items-center py-10 ${isEven ? "bg-[#0d0d0d]" : "bg-[#1a1a1a]"}`}
             >
               <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
                 {/* Step card */}
@@ -249,7 +239,7 @@ export default function ImportacionPage() {
             className="inline-flex items-center gap-2 bg-[#D50000] hover:bg-[#B71C1C] text-white font-bold px-8 py-4 rounded transition-colors text-base"
           >
             Solicitar presupuesto
-            <ArrowLeft className="w-5 h-5 rotate-180" />
+            <ArrowRight className="w-5 h-5" />
           </Link>
         </div>
       </section>
