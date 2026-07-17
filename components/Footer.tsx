@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Phone, Mail, Instagram } from "lucide-react";
-import { CONTACT, assetPath } from "@/lib/contact";
+import { CONTACT } from "@/lib/contact";
 
 export default function Footer() {
   return (
@@ -11,7 +11,7 @@ export default function Footer() {
           <div className="space-y-4">
             <div className="flex items-center space-x-3">
               <Image
-                src={assetPath("/logo.png")}
+                src="/logo.png"
                 alt="Logo FM Premium Cars"
                 width={120}
                 height={63}

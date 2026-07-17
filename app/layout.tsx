@@ -22,14 +22,8 @@ const title = "FM Premium Cars — Te ayudo a comprar tu coche sin equivocarte"
 const description =
   "Asesoría 1:1 para comprar coche, importación desde Alemania y revisión pre-compra en Barcelona. Evitá errores caros y comprá con confianza."
 
-// Trailing slash matters: relative asset paths below (e.g. "og-image.png")
-// resolve *under* metadataBase's full path (including the GitHub Pages repo
-// subpath) only when the base itself ends in "/" — otherwise URL resolution
-// treats the last path segment as a filename and drops it.
-const metadataBase = new URL(`${SITE_URL}/`)
-
 export const metadata: Metadata = {
-  metadataBase,
+  metadataBase: new URL(SITE_URL),
   title,
   description,
   openGraph: {
@@ -39,13 +33,13 @@ export const metadata: Metadata = {
     siteName: "FM Premium Cars",
     locale: "es_ES",
     type: "website",
-    images: [{ url: "og-image.png", width: 1200, height: 630, alt: title }],
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: title }],
   },
   twitter: {
     card: "summary_large_image",
     title,
     description,
-    images: ["og-image.png"],
+    images: ["/og-image.png"],
   },
 }
 

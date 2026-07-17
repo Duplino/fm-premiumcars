@@ -1,19 +1,6 @@
-// Hosted on GitHub Pages at the default project-page URL. If a custom
-// domain gets attached later, update this (and drop BASE_PATH usage /
-// next.config.ts's basePath) to point at the root domain instead.
-export const SITE_URL = "https://duplino.github.io/fm-premiumcars";
-export const BASE_PATH = "/fm-premiumcars";
-
-/**
- * `next/image` is set to `unoptimized` (GitHub Pages has no server to run
- * the optimizer), and unoptimized images do NOT get `basePath` auto-prefixed
- * the way the optimizer proxy path normally would. Wrap every local
- * (public/) image src in this so it still resolves under /fm-premiumcars/.
- * Not needed for absolute URLs (e.g. Directus asset URLs).
- */
-export function assetPath(path: string): string {
-  return `${BASE_PATH}${path}`;
-}
+// Update once the Vercel project has a final URL (custom domain or the
+// assigned *.vercel.app one).
+export const SITE_URL = "https://fm-premiumcars.vercel.app";
 
 export const CONTACT = {
   phone: "34641774061",
