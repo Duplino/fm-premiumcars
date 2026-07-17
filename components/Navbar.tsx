@@ -5,12 +5,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { Menu, X, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { bookingLink } from "@/lib/contact";
 
 const navLinks = [
-  { href: "#servicios", label: "Servicios" },
-  { href: "#proceso", label: "Proceso" },
-  { href: "#autos", label: "Autos" },
-  { href: "#contacto", label: "Contacto" },
+  { href: "/#servicios", label: "Servicios" },
+  { href: "/#autos", label: "Autos" },
+  { href: "/#contacto", label: "Contacto" },
 ];
 
 export default function Navbar() {
@@ -26,7 +26,7 @@ export default function Navbar() {
               src="/logo.png"
               alt="Logo FM Premium Cars"
               width={120}
-              height={120}
+              height={63}
             />
           </Link>
 
@@ -45,9 +45,9 @@ export default function Navbar() {
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center">
-            <Link href="/presupuesto">
+            <Link href={bookingLink()} target="_blank" rel="noopener noreferrer">
               <Button className="bg-[#D50000] hover:bg-[#B71C1C] text-white border-0 tracking-wide font-bold">
-                Presupuesto
+                Agendá tu llamada
                 <ArrowRight className="ml-2 w-4 h-4" />
               </Button>
             </Link>
@@ -57,7 +57,9 @@ export default function Navbar() {
           <button
             className="md:hidden text-white p-2"
             onClick={() => setMenuOpen((prev) => !prev)}
-            aria-label="Abrir menú"
+            aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
           >
             {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -66,7 +68,7 @@ export default function Navbar() {
 
       {/* Mobile dropdown */}
       {menuOpen && (
-        <div className="md:hidden bg-black border-t border-[#333333] px-4 pb-4">
+        <div id="mobile-menu" className="md:hidden bg-black border-t border-[#333333] px-4 pb-4">
           <nav className="flex flex-col space-y-4 pt-4">
             {navLinks.map((link) => (
               <Link
@@ -78,9 +80,14 @@ export default function Navbar() {
                 {link.label}
               </Link>
             ))}
-            <Link href="/presupuesto" onClick={() => setMenuOpen(false)}>
+            <Link
+              href={bookingLink()}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setMenuOpen(false)}
+            >
               <Button className="w-full bg-[#D50000] hover:bg-[#B71C1C] text-white border-0 tracking-wide font-bold mt-2">
-                Presupuesto
+                Agendá tu llamada
                 <ArrowRight className="ml-2 w-4 h-4" />
               </Button>
             </Link>

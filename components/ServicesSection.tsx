@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Handshake, Car, Truck, Wrench } from "lucide-react";
+import { UserCheck, Truck, Wrench } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 interface Service {
@@ -11,18 +11,11 @@ interface Service {
 
 const services: Service[] = [
   {
-    icon: Handshake,
-    title: "Gestión de venta",
+    icon: UserCheck,
+    title: "Asesoría Comprá tu Coche",
     description:
-      "Gestionamos la venta de tu vehículo actual al mejor precio. Nos encargamos de todo el proceso.",
-    href: "/servicios/gestion-venta",
-  },
-  {
-    icon: Car,
-    title: "Venta de coches en stock",
-    description:
-      "Amplio catálogo de vehículos importados en stock, listos para entrega inmediata.",
-    href: "/servicios/stock",
+      "Te ayudamos a elegir y comprar el coche ideal, evitando errores caros y malas decisiones. Desde una opinión rápida hasta acompañamiento completo.",
+    href: "/servicios/asesoria-compra",
   },
   {
     icon: Truck,
@@ -33,16 +26,16 @@ const services: Service[] = [
   },
   {
     icon: Wrench,
-    title: "Revisión integral de coches",
+    title: "Revisión Pre-Compra",
     description:
-      "Inspección técnica completa de tu vehículo con informe detallado.",
-    href: "/servicios/revision",
+      "Revisamos el coche antes de que lo compres para detectar problemas ocultos y evitar malas decisiones. Cobertura en Barcelona y Cataluña.",
+    href: "/servicios/revision-pre-compra",
   },
 ];
 
 export default function ServicesSection() {
   return (
-    <section id="servicios" className="py-20 bg-[#1a1a1a]">
+    <section id="servicios" className="py-20 bg-[#0d0d0d] scroll-mt-24">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center space-y-4 mb-16">
           <span className="inline-block bg-[#D50000] text-white text-xs tracking-widest font-bold px-3 py-1 rounded-sm">
@@ -52,17 +45,17 @@ export default function ServicesSection() {
             Nuestros servicios
           </h2>
           <p className="text-xl text-[#CCCCCC] max-w-3xl mx-auto tracking-wide">
-            Todo lo que necesitas para importar o vender tu vehículo con total garantía
+            Todo lo que necesitas para comprar tu coche con total garantía, sin errores ni sorpresas
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {services.map((service) => {
             const Icon = service.icon;
             return (
               <div
                 key={service.href}
-                className="bg-[#111111] rounded-lg p-8 flex flex-col gap-4 shadow-lg hover:shadow-xl transition-shadow border border-[#222222]"
+                className="bg-[#111111] rounded-xl p-6 flex flex-col gap-4 border border-[#222222] transition-colors hover:border-[#D50000]/50"
               >
                 <div className="w-12 h-12 bg-[#D50000] rounded-sm flex items-center justify-center flex-shrink-0">
                   <Icon className="w-6 h-6 text-white" />

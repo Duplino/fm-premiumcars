@@ -125,6 +125,10 @@
   scroll-behavior: smooth;
 }
 
+html {
+  scroll-snap-type: y proximity;
+}
+
 /* Dual range slider – overlapping inputs share a track */
 .dual-range-input {
   pointer-events: none;
@@ -156,24 +160,16 @@
   background: transparent;
 }
 
-@font-face {
-  font-family: 'Boldonse';
-  src: url('/fonts/Boldonse-Regular.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
 .font-racing {
-  font-family: Boldonse, sans-serif;
+  font-family: var(--font-boldonse), sans-serif;
 }
 
 body {
-  font-family: 'Space Mono', 'Courier New', monospace !important;
+  font-family: var(--font-space-mono), 'Courier New', monospace;
 }
 
 h1, h2, h3, h4, h5, h6, .font-racing {
-  font-family: Boldonse, sans-serif;
+  font-family: var(--font-boldonse), sans-serif;
   line-height: 1.6;
 }
 
