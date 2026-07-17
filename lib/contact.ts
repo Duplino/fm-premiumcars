@@ -1,6 +1,5 @@
-// Update once the Vercel project has a final URL (custom domain or the
-// assigned *.vercel.app one).
-export const SITE_URL = "https://fm-premiumcars.vercel.app";
+// Update if a custom domain gets attached later.
+export const SITE_URL = "https://fm-premiumcars-seven.vercel.app";
 
 export const CONTACT = {
   phone: "34641774061",
