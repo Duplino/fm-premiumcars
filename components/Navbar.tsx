@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Menu, X, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { bookingLink } from "@/lib/contact";
+import { assetPath, bookingLink } from "@/lib/contact";
 
 const navLinks = [
   { href: "/#servicios", label: "Servicios" },
@@ -23,7 +23,7 @@ export default function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center">
             <Image
-              src="/logo.png"
+              src={assetPath("/logo.png")}
               alt="Logo FM Premium Cars"
               width={120}
               height={63}

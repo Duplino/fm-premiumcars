@@ -7,7 +7,7 @@ import ServicesSection from "@/components/ServicesSection";
 import CarSection from "@/components/CarSection";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import Footer from "@/components/Footer";
-import { CONTACT, bookingLink, whatsappLink } from "@/lib/contact";
+import { CONTACT, assetPath, bookingLink, whatsappLink } from "@/lib/contact";
 
 export default function FMPremiumCarsLanding() {
   return (
@@ -60,7 +60,7 @@ export default function FMPremiumCarsLanding() {
 
             <div className="relative">
               <Image
-                src="/car1.jpg"
+                src={assetPath("/car1.jpg")}
                 alt="Coche deportivo importado desde Alemania"
                 width={800}
                 height={600}
@@ -94,7 +94,7 @@ export default function FMPremiumCarsLanding() {
           <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-12">
             <div className="bg-[#111111] rounded-xl p-8 text-center border border-[#222222] transition-colors hover:border-[#D50000]/50">
               <div className="w-16 h-16 bg-[#D50000] rounded-sm flex items-center justify-center mx-auto mb-4">
-                <Image src="/wsp.png" alt="WhatsApp" width={35} height={35} />
+                <Image src={assetPath("/wsp.png")} alt="WhatsApp" width={35} height={35} />
               </div>
               <h3 className="font-racing text-white tracking-wide mb-3">
                 Whatsapp

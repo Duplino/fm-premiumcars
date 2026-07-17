@@ -22,7 +22,11 @@ export interface Car {
   estado: "stock" | "importado" | null;
 }
 
-const DIRECTUS_URL = process.env.DIRECTUS_URL ?? "https://directus.scalise.ar";
+// NEXT_PUBLIC_-prefixed because getCars() runs both at build time (server)
+// and again in the browser on mount (see components/CarCatalog.tsx) — a
+// plain env var wouldn't be inlined into the client bundle.
+const DIRECTUS_URL =
+  process.env.NEXT_PUBLIC_DIRECTUS_URL ?? "https://directus.scalise.ar";
 
 export function directusAssetUrl(
   fileId: string,
@@ -38,7 +42,7 @@ export async function getCars(): Promise<Car[]> {
   try {
     const res = await fetch(
       `${DIRECTUS_URL}/items/FM_Premium_Cars?filter[archived][_eq]=false&sort=sort`,
-      { next: { revalidate: 3600 } }
+      { cache: "no-store" }
     );
     if (!res.ok) return [];
 
